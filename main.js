@@ -71,6 +71,23 @@ let template = [
         }]
     },
     {
+        label: '刷新',
+        accelerator: 'F5',
+            click: function(item, focusedWindow) {
+                if (focusedWindow) {
+                    // 重载之后, 刷新并关闭所有的次要窗体
+                    if (focusedWindow.id === 1) {
+                        BrowserWindow.getAllWindows().forEach(function(win) {
+                            if (win.id > 1) {
+                                win.close()
+                            }
+                        })
+                    }
+                    focusedWindow.reload()
+                }
+            }
+    },
+    {
         label: '初始化',
         submenu:[{
             label: '开始申报',
@@ -83,14 +100,14 @@ let template = [
                     //   })
                     contents.executeJavaScript(
                         'var a=loadYsbqcData.toString();' +
-                        'new_f = a.replace(\'function loadYsbqcData\',\'loadYsbqcData=function()\')' +
-                        '.replace(\'ZRJC.ajaxCall(url, params, function(json) {\',\'ZRJC.ajaxCall(url, params, function(json) {top.dbsx_data=json;\')' +
-                        'eval(new_f)'
-                    );
-                    contents.executeJavaScript('dbsx()');
-                    contents.executeJavaScript('top.dbsx_data').then((res) => {} )
+                        'console.log(a);'+
+                        'new_f = a.replace(\'function loadYsbqcData\',\'dbsx=function loaddata\')' +
+                        '.replace(\'ZRJC.ajaxCall(url, params, function(json) {\',\'ZRJC.ajaxCall(url, params, function(json) {top.dbsx_data=json;\');' +
+                        'eval(new_f);'+
+                        'dbsx();'+
+                        'top.dbsx_data;'
+                    ).then((res) => {console.log(res)} )
                 }
-
             }
         }]
     }
