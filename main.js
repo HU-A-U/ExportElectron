@@ -71,6 +71,21 @@ let template = [
         }]
     },
     {
+        label: '调试',
+        accelerator: (function() {
+            if (process.platform === 'darwin') {
+                return 'Alt+Command+I'
+            } else {
+                return 'Ctrl+Shift+I'
+            }
+        })(),
+        click: function(item, focusedWindow) {
+            if (focusedWindow) {
+                focusedWindow.toggleDevTools()
+            }
+        }
+    },
+    {
         label: '刷新',
         accelerator: 'F5',
             click: function(item, focusedWindow) {
@@ -98,7 +113,7 @@ let template = [
                     //   .then((result) => {
                     //     console.log(result) // Will be the JSON object from the fetch call
                     //   })
-                    contents.executeJavaScript(
+                    res = contents.executeJavaScript(
                         'var a=loadYsbqcData.toString();' +
                         'console.log(a);'+
                         'new_f = a.replace(\'function loadYsbqcData\',\'dbsx=function loaddata\')' +
@@ -106,7 +121,9 @@ let template = [
                         'eval(new_f);'+
                         'dbsx();'+
                         'top.dbsx_data;'
-                    ).then((res) => {console.log(res)} )
+                    ) //.then((res) => {console.log(res)} )
+                    console.log(res)
+                    console.log(res.contents)
                 }
             }
         }]
@@ -135,7 +152,7 @@ function findReopenMenuItem() {
 if (process.platform === 'win32') {
     const helpMenu = template[template.length - 1].submenu
 }
-
+app.commandLine.appendSwitch("--disable-http-cache")
 app.on('ready', function() {
     const menu = Menu.buildFromTemplate(template)
     Menu.setApplicationMenu(menu)
