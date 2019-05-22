@@ -34,43 +34,6 @@ let template = [
         }]
     },
     {
-        label: '查看',
-        submenu:
-        [{
-            label: '刷新',
-            accelerator: 'F5',
-            click: function(item, focusedWindow) {
-                if (focusedWindow) {
-                    // 重载之后, 刷新并关闭所有的次要窗体
-                    if (focusedWindow.id === 1) {
-                        BrowserWindow.getAllWindows().forEach(function(win) {
-                            if (win.id > 1) {
-                                win.close()
-                            }
-                        })
-                    }
-                    focusedWindow.reload()
-                }
-            }
-        }, {
-            label: '切换开发者工具',
-            accelerator: (function() {
-                if (process.platform === 'darwin') {
-                    return 'Alt+Command+I'
-                } else {
-                    return 'Ctrl+Shift+I'
-                }
-            })(),
-            click: function(item, focusedWindow) {
-                if (focusedWindow) {
-                    focusedWindow.toggleDevTools()
-                }
-            }
-        }, {
-            type: 'separator'
-        }]
-    },
-    {
         label: '调试',
         accelerator: (function() {
             if (process.platform === 'darwin') {
@@ -103,30 +66,27 @@ let template = [
             }
     },
     {
-        label: '初始化',
-        submenu:[{
-            label: '开始申报',
-            click: function(item, focusedWindow) {
-                if (focusedWindow) {
-                    contents = focusedWindow.webContents;
-                    // contents.executeJavaScript('fetch("https://jsonplaceholder.typicode.com/users/1").then(resp => resp.json())', true)
-                    //   .then((result) => {
-                    //     console.log(result) // Will be the JSON object from the fetch call
-                    //   })
-                    res = contents.executeJavaScript(
-                        'var a=loadYsbqcData.toString();' +
-                        'console.log(a);'+
-                        'new_f = a.replace(\'function loadYsbqcData\',\'dbsx=function loaddata\')' +
-                        '.replace(\'ZRJC.ajaxCall(url, params, function(json) {\',\'ZRJC.ajaxCall(url, params, function(json) {top.dbsx_data=json;\');' +
-                        'eval(new_f);'+
-                        'dbsx();'+
-                        'top.dbsx_data;'
-                    ) //.then((res) => {console.log(res)} )
-                    console.log(res)
-                    console.log(res.contents)
-                }
+        label: '开始申报',
+        click: function(item, focusedWindow) {
+            if (focusedWindow) {
+                contents = focusedWindow.webContents;
+                // contents.executeJavaScript('fetch("https://jsonplaceholder.typicode.com/users/1").then(resp => resp.json())', true)
+                //   .then((result) => {
+                //     console.log(result) // Will be the JSON object from the fetch call
+                //   })
+                res = contents.executeJavaScript(
+                    'var a=loadYsbqcData.toString();' +
+                    'console.log(a);'+
+                    'new_f = a.replace(\'function loadYsbqcData\',\'dbsx=function loaddata\')' +
+                    '.replace(\'ZRJC.ajaxCall(url, params, function(json) {\',\'ZRJC.ajaxCall(url, params, function(json) {top.dbsx_data=json;\');' +
+                    'eval(new_f);'+
+                    'dbsx();'+
+                    'top.dbsx_data;'
+                ) //.then((res) => {console.log(res)} )
+                console.log(res)
+                console.log(res.contents)
             }
-        }]
+        }
     }
 ];
 
