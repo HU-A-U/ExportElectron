@@ -1,0 +1,27 @@
+{
+  "name": "taxelectron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HU-A-U/TaxElectron.git"
+  },
+  "keywords": [
+    "tax",
+    "electron"
+  ],
+  "author": "hu-a-u",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HU-A-U/TaxElectron/issues"
+  },
+  "homepage": "https://github.com/HU-A-U/TaxElectron#readme",
+  "devDependencies": {
+    "electron": "^5.0.1"
+  }
+}

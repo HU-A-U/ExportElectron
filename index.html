@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>申报系统</title>
+  </head>
+  <body>
+    <iframe id="iframepage" src="https://etax.ningbo.chinatax.gov.cn/login-web/index.html" frameborder="0"
+    width="100%" height="100%" onload="changeFrameHeight()" scrolling="no"></iframe>
+  </body>
+  <script>require('./static/js/jquery-2.0.0.min')</script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            alert('huhuhu')
+        });
+    </script>
+    <script type="application/javascript">
+          //使ifrmae 高度自适应全屏
+          function changeFrameHeight(){
+              var ifm= document.getElementById("iframepage");
+              ifm.height=document.documentElement.clientHeight;
+          }
+          window.onresize=function(){
+              changeFrameHeight();
+          }
+
+    </script>
+</html>

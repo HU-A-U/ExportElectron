@@ -1,0 +1,44 @@
+.form_con{
+            width:400px;
+            height:500px;
+            background:#f2f2f2;
+            margin:50px auto 0;
+            padding:20px;
+        }
+        p{
+            margin-top: 12px;
+            margin-bottom: 22px;
+        }
+        button{
+            margin-left: 120px;
+            width: 140px;
+            height: 30px;
+        }
+        .form_con label{
+            float:left;
+            width:120px;
+            text-align:right;
+        }
+
+        .form_con h3{
+            margin:0px;
+            border-bottom:1px solid #ddd;
+            line-height:50px;
+            font-size:22px;
+            font-weight:normal;
+        }
+
+        .input_txt{
+            width:140px;
+            height:25px;
+        }
+        .login_btn{
+            margin-top: 10px;
+            margin-left:80px;
+            width: 80px;
+            height: 30px;
+        }
+        .code{
+            width: 120px;
+            height: 50px;
+        }
