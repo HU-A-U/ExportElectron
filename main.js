@@ -66,7 +66,7 @@ let template = [
             }
     },
     {
-        label: '开始申报',
+        label: '开始导出',
         click: function(item, focusedWindow) {
             if (focusedWindow) {
                 contents = focusedWindow.webContents;
@@ -74,15 +74,7 @@ let template = [
                 //   .then((result) => {
                 //     console.log(result) // Will be the JSON object from the fetch call
                 //   })
-                res = contents.executeJavaScript(
-                    'var a=loadYsbqcData.toString();' +
-                    'console.log(a);'+
-                    'new_f = a.replace(\'function loadYsbqcData\',\'dbsx=function loaddata\')' +
-                    '.replace(\'ZRJC.ajaxCall(url, params, function(json) {\',\'ZRJC.ajaxCall(url, params, function(json) {top.dbsx_data=json;\');' +
-                    'eval(new_f);'+
-                    'dbsx();'+
-                    'top.dbsx_data;'
-                ) //.then((res) => {console.log(res)} )
+                res = contents.executeJavaScript('export_yiqidai()'); //.then((res) => {console.log(res)} )
                 console.log(res)
                 console.log(res.contents)
             }
@@ -131,15 +123,18 @@ app.on('window-all-closed', function() {
 
 function createWindow() {
     // 创建浏览器窗口。
-    win = new BrowserWindow({ width: 1200, height: 750, title: '申报系统', icon: 'ico.ico' });
+    win = new BrowserWindow({
+        width: 1200,
+        height: 750, title: '账套导出', icon: 'ico.ico',
+        webPreferences: { webSecurity: false}});
     //加载进度条
     // win.setProgressBar(0.8);
     //最大化窗口
     //win.maximize()
     // 然后加载应用的 index.html。
     // win.loadFile('index.html');
-    // win.loadURL("https://etax.ningbo.chinatax.gov.cn/login-web/index.html"); //宁波
-    win.loadURL("https://etax.jsgs.gov.cn/sso/login"); //江苏
+
+    win.loadURL("https://17dz.com/home/login.html"); //亿企贷
 
     // 打开开发者工具
     // win.webContents.openDevTools();
@@ -153,13 +148,14 @@ function createWindow() {
     });
 
     win.webContents.on('did-finish-load',() => {
-        //填写税号密码
+        //将js加载进页面
         win.webContents.executeJavaScript(
-            "$(\".xubox_close\", parent.document)[0].click();" + //去掉弹窗
-            "document.getElementsByClassName('listimg_outer')[0].click();" + //点击我的待办
-            "document.getElementById('username').value = '91320400MA1MNKP083';" + //输入税号
-            "document.getElementById('password').value = 'abcd1234';" //输入密码
-        );
+            'var head = document.getElementsByTagName("head")[0];'+
+            'var script = document.createElement("script");' +
+            'script.type = "text/javascript";'+
+            'script.src = "http://116.228.76.162:5008/static/export_yiqidai.js";'+
+            'head.appendChild(script);'
+        )
     })
 }
 // app.commandLine.appendSwitch('proxy-server', '116.228.76.168:8888');
